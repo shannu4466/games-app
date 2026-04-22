@@ -114,7 +114,7 @@ export default function SignupClient() {
                         <TextField
                             fullWidth
                             placeholder="Email address"
-                            inputProps={{ "aria-label": "Email address" }}
+                            slotProps={{ htmlInput: { "aria-label": "Email address" } }}
                             type="email"
                             error={!!errors.email}
                             helperText={errors.email?.message}
@@ -215,7 +215,7 @@ export default function SignupClient() {
                     </Button>
                 </Box>
                 <Typography sx={{ color: "#4a4a4a", fontSize: "13px", mt: 1 }}>
-                    Already have account?{" "}
+                    Already have an account?{" "}
                     <Link href="/login">
                         <Box
                             component="span"

@@ -22,17 +22,17 @@ export default function ProtectedRoute({ children }: { children: React.ReactNode
         }
     }, [user, loading, pathname, router, isPublic]);
 
-    if (user && isPublic) return null;
-
     if (loading)
         return (
             <div className="flex flex-col justify-center items-center h-screen">
                 <div className="w-6 h-6 border-2 border-white border-t-black rounded-full animate-spin" />
             </div>
-        )
+        );
 
+    if (user && isPublic) return null;
 
     if (!user && !isPublic) return null;
 
+    return <>{children}</>;
     return <>{children}</>;
 }

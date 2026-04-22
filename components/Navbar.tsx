@@ -130,7 +130,14 @@ export default function Navbar() {
                         Cancel
                     </Button>
 
-                    <Button onClick={logout} color='error' variant='contained'>
+                    <Button
+                        onClick={() => {
+                            setConfirmCloseOpen(false);
+                            logout();
+                        }}
+                        color='error'
+                        variant='contained'
+                    >
                         Logout
                     </Button>
                 </DialogActions>
