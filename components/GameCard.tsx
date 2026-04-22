@@ -62,8 +62,13 @@ const GameCard = () => {
                 Date: new Date().toLocaleString()
             }
 
-            const existingScores = JSON.parse(localStorage.getItem('userScores') || '[]')
-            localStorage.setItem('userScores', JSON.stringify([...existingScores, gameResult]))
+            try {
+                const existingScores = JSON.parse(localStorage.getItem('userScores') || '[]')
+                localStorage.setItem('userScores', JSON.stringify([...existingScores, gameResult]))
+            } catch (error) {
+                console.error('Failed to save game result:', error)
+                // Optionally show user notification that results couldn't be saved
+            }
         },
         [userEmail, mode]
     )

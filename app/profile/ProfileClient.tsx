@@ -81,16 +81,15 @@ export default function ProfileClient() {
                             <Image src={url} alt="avatar" width="300" height="300" loading="eager" />
                         </AvatarInput>
                         <ReactFileReader
-                            fileTypes={[".png", ".jpg"]}
+                            fileTypes={[".png", ".jpg", ".jpeg"]}
                             base64={true}
                             handleFiles={handleFiles}
                         >
                             <Button variant="contained" color="secondary" sx={{ display: "flex", alignItems: "center" }}>
-                                <CloudUploadIcon type="button" sx={{ mr: 1 }} />
+                                <CloudUploadIcon sx={{ mr: 1 }} />
                                 Upload image
                             </Button>
-                        </ReactFileReader>
-                    </Box>
+                        </ReactFileReader>                    </Box>
                     <Box sx={{ p: 3, }}>
                         <Typography color="text.secondary">
                             Welcome back to your profile

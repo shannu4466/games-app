@@ -114,6 +114,7 @@ export default function SignupClient() {
                         <TextField
                             fullWidth
                             placeholder="Email address"
+                            inputProps={{ "aria-label": "Email address" }}
                             type="email"
                             error={!!errors.email}
                             helperText={errors.email?.message}

@@ -5,7 +5,7 @@ export const metadata: Metadata = {
     title: 'GameSphere Profile',
 }
 
-export default function Login() {
+export default function ProfilePage() {
     return (
         <div suppressHydrationWarning>
             <ProfileClient />

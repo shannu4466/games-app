@@ -111,7 +111,7 @@ export default function AuthClient() {
     }
 
     useEffect(() => {
-        const isCredSave = localStorage.getItem("save_cred") || "[]"
+        const isCredSave = localStorage.getItem("save_cred") || "{}"
         const parsedSavedCred = JSON.parse(isCredSave)
         const isSaved = parsedSavedCred?.rememberMe || false
         setSavedCred(parsedSavedCred)
