@@ -81,6 +81,9 @@ export default function Navbar() {
                     <Link href={path === "/profile" ? "/" : "/profile"}>
                         <Typography sx={{ ml: 3 }}>{path === '/profile' ? "Go to home" : "View profile"}</Typography>
                     </Link>
+                    <Link href="/dashboard">
+                        <Typography sx={{ ml: 3 }}>Dashboard</Typography>
+                    </Link>
                 </Box>
                 <IconButton
                     onClick={toggleTheme}

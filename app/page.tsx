@@ -1,44 +1,35 @@
 "use client";
 
+import GameCard from "@/components/GameCard";
+import InstructionsCard from "@/components/InstructionsCard";
+import MediumCard from "@/components/MediumCard";
+import Navbar from "@/components/Navbar";
+import HistoryIcon from "@mui/icons-material/History";
 import {
   Box,
-  Typography,
+  Button,
   Card,
   CardContent,
-  Button,
+  Chip,
+  Divider,
   Grid,
   Paper,
   Stack,
-  Divider,
-  Chip,
   TextField,
+  Typography,
 } from "@mui/material";
-import HistoryIcon from "@mui/icons-material/History";
-import Navbar from "@/components/Navbar";
 import Image from "next/image";
-import calcgame from "../public/calcgame.jpg";
-import InstructionsCard from "@/components/InstructionsCard";
-import MediumCard from "@/components/MediumCard";
-import GameCard from "@/components/GameCard";
 
-import { useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
+import { useEffect } from "react";
 
 import { useHomePageStore } from "./store";
 
-// List of games
-const games = [
-  {
-    id: 1,
-    imageUrl: calcgame,
-    name: "Math Blaster",
-    description:
-      "solve math probelms and be expert in speed calculation. It contains different modes from easy to hard.",
-  },
-];
+import { games } from '../data/games';
 
 type GameResult = {
   userEmail: string;
+  gameName: string;
   score: number;
   rightQuestions: number;
   wrongQuestions: number;
@@ -55,10 +46,12 @@ export default function Home() {
   const gameStarted = useHomePageStore((state) => state.gameStarted);
   const history = useHomePageStore((state) => state.history);
 
+  const setId = useHomePageStore((state) => state.setId);
   const setOpen = useHomePageStore((state) => state.setOpen);
   const setHistory = useHomePageStore((state) => state.setHistory);
   const setSearchGame = useHomePageStore((state) => state.setSearchGame);
   const searchGame = useHomePageStore((state) => state.searchGame);
+  const setGameName = useHomePageStore((state) => state.setGameName);
 
   const { user } = useAuth();
   const currentUserEmail = user?.email || "undefinedUser@gmail.com";
@@ -120,11 +113,12 @@ export default function Home() {
               container
               spacing={3}
               key={eachGame.id}
-              sx={{ display: "flex", m: 2 }}
+              sx={{ display: "inline-flex", flexDirection: "row", m: 2 }}
             >
               <Grid size={{ xs: 12, sm: 6, lg: 4 }}>
                 <Card
                   sx={{
+                    width: 280,
                     borderRadius: 3,
                     boxShadow: 3,
                     transition: "0.3s",
@@ -134,24 +128,45 @@ export default function Home() {
                     },
                   }}
                 >
-                  <Box sx={{ display: "flex", justifyContent: "center", p: 2 }}>
-                    <Image
-                      src={eachGame.imageUrl}
-                      alt="game-image"
-                      width={250}
-                      height={300}
-                      style={{ borderRadius: "10px", objectFit: "cover" }}
-                    />
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      p: 2,
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        width: 250,
+                        height: 160,
+                        position: "relative",
+                        overflow: "hidden",
+                        borderRadius: "10px",
+                      }}
+                    >
+                      <Image
+                        src={eachGame.imageUrl}
+                        alt="game-image"
+                        fill
+                        style={{
+                          objectFit: "cover",
+                        }}
+                      />
+                    </Box>
                   </Box>
-                  <CardContent sx={{ textAlign: "center" }}>
-                    <Typography variant="h6" sx={{ mb: 1, fontWeight: "bold" }}>
+                  <CardContent sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <Typography sx={{ mb: 1, fontWeight: "bold", fontSize: "20px" }}>
                       {eachGame.name}
                     </Typography>
                     <Box sx={{ textAlign: "end" }}>
                       <Button
                         variant="contained"
                         color="secondary"
-                        onClick={() => setOpen(true)}
+                        onClick={() => {
+                          setId(eachGame.id)
+                          setOpen(true)
+                          setGameName(eachGame.name)
+                        }}
                       >
                         Play Now
                       </Button>
@@ -206,7 +221,7 @@ export default function Home() {
           >
             <HistoryIcon color="secondary" />
             <Typography variant="h5" sx={{ fontWeight: "bold", ml: 2 }}>
-              My History
+              My History tab
             </Typography>
           </Stack>
           <Divider sx={{ mb: 2 }} />
@@ -226,6 +241,9 @@ export default function Home() {
                           alignItems: "start",
                         }}
                       >
+                        <Typography variant="caption" color="text.secondary">
+                          {item.gameName || "Game name not found"}
+                        </Typography>
                         <Typography variant="caption" color="text.secondary">
                           {item.Date}
                         </Typography>
@@ -289,7 +307,8 @@ export default function Home() {
               </Stack>
             ) : (
               <Box sx={{ textAlign: "center", mt: 10 }}>
-                <Typography color="text.secondary">
+                <Image src="https://github.githubassets.com/assets/inbox-zero-dark-377cc25a227f.svg" alt="empty" width={300} height={300} />
+                <Typography color="text.secondary" sx={{ mt: 4 }}>
                   No games played yet.
                 </Typography>
               </Box>
@@ -320,6 +339,9 @@ export default function Home() {
                         alignItems: "start",
                       }}
                     >
+                      <Typography variant="caption" color="text.secondary">
+                        {item.gameName || "Game name not found"}
+                      </Typography>
                       <Typography variant="caption" color="text.secondary">
                         {item.Date}
                       </Typography>
@@ -393,6 +415,6 @@ export default function Home() {
       <InstructionsCard />
       <MediumCard />
       <GameCard />
-    </Box>
+    </Box >
   );
 }

@@ -48,6 +48,8 @@ const GameCard = () => {
     const [mode, setMode] = useState('')
     const [confirmCloseOpen, setConfirmCloseOpen] = useState(false)
 
+    const gameName = useHomePageStore((state) => state.gameName)
+
     const { user } = useAuth()
     const userEmail = user?.email || 'undefinedUser@gmail.com'
 
@@ -55,6 +57,7 @@ const GameCard = () => {
         (finalScore: number, finalCorrect: number, finalWrong: number) => {
             const gameResult = {
                 userEmail,
+                gameName,
                 score: finalScore,
                 rightQuestions: finalCorrect,
                 wrongQuestions: finalWrong,
@@ -70,7 +73,7 @@ const GameCard = () => {
                 // Optionally show user notification that results couldn't be saved
             }
         },
-        [userEmail, mode]
+        [userEmail, gameName, mode]
     )
 
     const finishGame = useCallback(

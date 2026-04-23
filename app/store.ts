@@ -1,6 +1,7 @@
 import { create } from "zustand";
 
 type GameResult = {
+    gameName: string;
     userEmail: string;
     score: number;
     rightQuestions: number;
@@ -10,31 +11,39 @@ type GameResult = {
 };
 
 type HomePageStore = {
+    id: number,
     open: boolean;
     medium: boolean;
     gameStarted: boolean;
     history: GameResult[];
     searchGame: string;
+    gameName: string;
 
+    setId: (value: number) => void;
     setOpen: (value: boolean) => void;
     setMedium: (value: boolean) => void;
     setGameStarted: (value: boolean) => void;
     setHistory: (data: GameResult[]) => void;
     setSearchGame: (data: string) => void;
+    setGameName: (data: string) => void;
 };
 
 export const useHomePageStore = create<HomePageStore>((set) => ({
+    id: 0,
     open: false,
     medium: false,
     gameStarted: false,
     history: [],
     searchGame: "",
+    gameName: "",
 
+    setId: (value) => set({ id: value }),
     setOpen: (value) => set({ open: value }),
     setMedium: (value) => set({ medium: value, }),
     setGameStarted: (value) => set({ gameStarted: value, }),
     setHistory: (data) => set({ history: data, }),
     setSearchGame: (data) => set({ searchGame: data, }),
+    setGameName: (data) => set({ gameName: data, }),
 }));
 
 type LoginPageStore = {

@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import ProfileClient from './ProfileClient'
 
 export const metadata: Metadata = {
-    title: 'GameSphere Profile',
+    title: 'GameSphere-Profile',
 }
 
 export default function ProfilePage() {

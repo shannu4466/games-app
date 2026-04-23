@@ -59,12 +59,19 @@ export const AvatarInput = styled.div`
 `;
 
 export default function ProfileClient() {
-    const [url, setUrl] = useState("https://i.imgur.com/ndu6pfe.png");
+    const [url, setUrl] = useState<string>(() => {
+        const getProfilePicture = localStorage.getItem("userProfilePicture")
+        if (getProfilePicture) {
+            return getProfilePicture
+        }
+        return "https://i.imgur.com/ndu6pfe.png"
+    });
 
     const { user } = useAuth()
 
     const handleFiles = (files: FileData) => {
         setUrl(files.base64);
+        localStorage.setItem("userProfilePicture", files.base64)
     };
 
     const name = user?.email ? user?.email.split('@')[0].charAt(0).toUpperCase() + user?.email.split('@')[0].slice(1) : ""
@@ -74,7 +81,7 @@ export default function ProfileClient() {
         <Box>
             <Navbar />
             <Box sx={{ m: 2 }}>
-                <Typography sx={{ fontWeight: "bold", fontSize: "30px", mb: 3 }}>Profile</Typography>
+                <Typography sx={{ fontWeight: "bold", fontSize: "30px", mb: 3, m: 3 }}>Profile</Typography>
                 <Box sx={{ display: "flex" }}>
                     <Box sx={{ mr: 10 }}>
                         <AvatarInput>

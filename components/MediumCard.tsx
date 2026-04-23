@@ -11,15 +11,20 @@ const time: Record<string, number> = {
     hard: 3
 }
 
-import {useHomePageStore} from '@/app/store';
+import { useHomePageStore } from '@/app/store';
+
+import { games } from "@/data/games";
 
 const MediumCard = () => {
+    const id = useHomePageStore((state) => state.id)
     const [mode, setMode] = useState<string>("easy")
 
     const medium = useHomePageStore((state) => state.medium)
     const setMedium = useHomePageStore((state) => state.setMedium)
     const setOpen = useHomePageStore((state) => state.setOpen)
     const setGameStarted = useHomePageStore((state) => state.setGameStarted)
+
+    const selectedGame = games.find((game) => game.id === id)
 
     const handleGameStart = () => {
         setMode("easy")
@@ -60,7 +65,7 @@ const MediumCard = () => {
                         </Box>
 
                         <Typography variant="body2" sx={{ mb: 2 }}>
-                            Get ready to solve fun math problems and test your skills!
+                            {selectedGame?.mediumInstructions?.intro}
                         </Typography>
 
                         <FormControl>
@@ -89,19 +94,19 @@ const MediumCard = () => {
                             {mode === "easy" && (
                                 <Box>
                                     <Typography sx={{ fontSize: "20px", fontWeight: "bold", mb: 1 }} variant="h1">EASY</Typography>
-                                    <Typography>For easy mode, you have 10 questions. Each question carries 10 marks. For each wrong answer -5 is deducted. The time will be 3 minutes</Typography>
+                                    <Typography>{selectedGame?.mediumInstructions?.easy}</Typography>
                                 </Box>
                             )}
                             {mode === "medium" && (
                                 <Box>
                                     <Typography sx={{ fontSize: "20px", fontWeight: "bold", mb: 1 }} variant="h1">MEDIUM</Typography>
-                                    <Typography>For medium mode, you have 10 questions. Each question carries 10 marks. For each wrong answer -3 is deducted. The time will be 4 minutes</Typography>
+                                    <Typography>{selectedGame?.mediumInstructions?.medium}</Typography>
                                 </Box>
                             )}
                             {mode === "hard" && (
                                 <Box>
                                     <Typography sx={{ fontSize: "20px", fontWeight: "bold", mb: 1 }} variant="h1">HARD</Typography>
-                                    <Typography>For hard mode, you have 10 questions. Each question carries 10 marks. For each wrong answer -2 is deducted. The time will be 5 minutes</Typography>
+                                    <Typography>{selectedGame?.mediumInstructions?.hard}</Typography>
                                 </Box>
                             )}
                         </Typography>
