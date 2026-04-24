@@ -1,6 +1,7 @@
 import { create } from "zustand";
 
 type GameResult = {
+    bonusScore: string;
     gameName: string;
     userEmail: string;
     score: number;

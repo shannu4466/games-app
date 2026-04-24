@@ -11,7 +11,7 @@ import Logo from "../../public/Logo.png"
 export default function Login() {
     return (
         <div suppressHydrationWarning className="flex flex-row justify-between">
-            <div className="w-full flex justify-center items-center bg-stone-950">
+            <div className="hidden lg:flex w-full justify-center items-center bg-stone-950">
                 <Image src={Logo} alt="logo" width={1500} height={1500} />
             </div>
             <AuthClient />

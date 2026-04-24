@@ -23,26 +23,26 @@ export const games = [
             hard: "For hard mode, you have 10 questions. Each question carries 10 marks. For each wrong answer -2 is deducted. The time will be 5 minutes"
         }
     },
-    {
-        id: 2,
-        imageUrl: "https://i.imgur.com/ndu6pfe.png",
-        name: "Dummy Game",
-        description: "Another fun game with math challenges.",
-        instructions: {
-            gameModes: {
-                Easy: "Simple sums.",
-                Medium: "Multiplication added.",
-                Hard: "Mixed tricky questions.",
-            },
-            howToPlay: "Select mode and answer quickly. Fastest answers gives more points.",
-            scoringDetails: "Hard mode gives more points.",
-            tips: "Practice daily.",
-        },
-        mediumInstructions: {
-            intro: "Dummy instructions Get ready to solve fun math problems and test your skills!",
-            easy: "Dummy Easy mode",
-            medium: "Dummy Medium Mode",
-            hard: "Dummy Hard Mode"
-        }
-    },
+    // {
+    //     id: 2,
+    //     imageUrl: "https://i.imgur.com/ndu6pfe.png",
+    //     name: "Dummy Game",
+    //     description: "Another fun game with math challenges.",
+    //     instructions: {
+    //         gameModes: {
+    //             Easy: "Simple sums.",
+    //             Medium: "Multiplication added.",
+    //             Hard: "Mixed tricky questions.",
+    //         },
+    //         howToPlay: "Select mode and answer quickly. Fastest answers gives more points.",
+    //         scoringDetails: "Hard mode gives more points.",
+    //         tips: "Practice daily.",
+    //     },
+    //     mediumInstructions: {
+    //         intro: "Dummy instructions Get ready to solve fun math problems and test your skills!",
+    //         easy: "Dummy Easy mode",
+    //         medium: "Dummy Medium Mode",
+    //         hard: "Dummy Hard Mode"
+    //     }
+    // },
 ];

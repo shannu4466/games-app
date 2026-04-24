@@ -79,70 +79,83 @@ export default function Home() {
   });
 
   return (
-    <Box sx={{ minHeight: "100vh", position: "relative" }}>
+    <Box sx={{ minHeight: "100vh", position: "relative", overflowX: "hidden" }}>
       <Navbar />
+
       <Box
         sx={{
-          p: { xs: 2, md: 5 },
-          pr: { md: "420px" },
-          transition: "padding 0.3s",
+          p: { xs: 2, sm: 3, md: 5 },
+          pr: { xs: 2, sm: 3, md: "420px" },
+          transition: "padding 0.3s"
         }}
       >
-        <Box sx={{ width: "100%", display: "flex", justifyContent: "end" }}>
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            justifyContent: { xs: "center", md: "end" },
+            mb: 3
+          }}
+        >
           <TextField
             id="outlined-search"
             label="Search game"
             type="search"
-            sx={{ width: "500px" }}
+            sx={{
+              width: "100%",
+              maxWidth: { xs: "100%", sm: "420px", md: "500px" }
+            }}
             onChange={(e) => setSearchGame(e.target.value)}
           />
         </Box>
+
         <Typography
           sx={{
-            fontSize: { xs: "22px", md: "30px" },
+            fontSize: { xs: "22px", sm: "26px", md: "30px" },
             fontWeight: "bold",
             mb: 3,
-            textAlign: { xs: "center", md: "left" },
+            textAlign: { xs: "center", md: "left" }
           }}
         >
           Available Games
         </Typography>
 
         {filteredGames.length > 0 ? (
-          filteredGames.map((eachGame) => (
-            <Grid
-              container
-              spacing={3}
-              key={eachGame.id}
-              sx={{ display: "inline-flex", flexDirection: "row", m: 2 }}
-            >
-              <Grid size={{ xs: 12, sm: 6, lg: 4 }}>
+          <Grid container spacing={{ xs: 2, sm: 3 }}>
+            {filteredGames.map((eachGame) => (
+              <Grid
+                key={eachGame.id}
+                size={{ xs: 12, sm: 6, lg: 4 }}
+              >
                 <Card
                   sx={{
-                    width: 280,
+                    width: "100%",
+                    maxWidth: { xs: "100%", sm: 320 },
+                    mx: "auto",
                     borderRadius: 3,
                     boxShadow: 3,
                     transition: "0.3s",
                     "&:hover": {
                       transform: "translateY(-5px)",
-                      boxShadow: 6,
-                    },
+                      boxShadow: 6
+                    }
                   }}
                 >
                   <Box
                     sx={{
                       display: "flex",
                       justifyContent: "center",
-                      p: 2,
+                      p: 2
                     }}
                   >
                     <Box
                       sx={{
-                        width: 250,
-                        height: 160,
+                        width: "100%",
+                        maxWidth: 280,
+                        height: { xs: 180, sm: 160 },
                         position: "relative",
                         overflow: "hidden",
-                        borderRadius: "10px",
+                        borderRadius: "10px"
                       }}
                     >
                       <Image
@@ -150,17 +163,34 @@ export default function Home() {
                         alt="game-image"
                         fill
                         style={{
-                          objectFit: "cover",
+                          objectFit: "cover"
                         }}
                       />
                     </Box>
                   </Box>
-                  <CardContent sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                    <Typography sx={{ mb: 1, fontWeight: "bold", fontSize: "20px" }}>
+
+                  <CardContent
+                    sx={{
+                      display: "flex",
+                      flexDirection: { xs: "column", sm: "row" },
+                      justifyContent: "space-between",
+                      alignItems: { xs: "stretch", sm: "center" },
+                      gap: 1.5
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        fontWeight: "bold",
+                        fontSize: { xs: "18px", sm: "20px" },
+                        textAlign: { xs: "center", sm: "left" }
+                      }}
+                    >
                       {eachGame.name}
                     </Typography>
+
                     <Box sx={{ textAlign: "end" }}>
                       <Button
+                        fullWidth
                         variant="contained"
                         color="secondary"
                         onClick={() => {
@@ -175,17 +205,22 @@ export default function Home() {
                   </CardContent>
                 </Card>
               </Grid>
-            </Grid>
-          ))
+            ))}
+          </Grid>
         ) : (
           <Typography
             variant="h6"
-            sx={{ textAlign: "center", mt: 5, color: "text.secondary" }}
+            sx={{
+              textAlign: "center",
+              mt: 5,
+              color: "text.secondary"
+            }}
           >
             No games found.
           </Typography>
         )}
       </Box>
+
       <Box
         sx={{
           display: { xs: "none", md: "block" },
@@ -194,7 +229,7 @@ export default function Home() {
           top: 100,
           bottom: 20,
           width: "380px",
-          zIndex: 10,
+          zIndex: 10
         }}
       >
         <Paper
@@ -207,7 +242,7 @@ export default function Home() {
             flexDirection: "column",
             bgcolor: "background.paper",
             border: "1px solid",
-            borderColor: "divider",
+            borderColor: "divider"
           }}
         >
           <Stack
@@ -216,23 +251,31 @@ export default function Home() {
               display: "flex",
               flexDirection: "row",
               justifyContent: "start",
-              spacing: 1,
-              alignItems: "center",
+              alignItems: "center"
             }}
           >
             <HistoryIcon color="secondary" />
-            <Typography variant="h5" sx={{ fontWeight: "bold", ml: 2 }}>
+
+            <Typography
+              variant="h5"
+              sx={{ fontWeight: "bold", ml: 2 }}
+            >
               My History tab
             </Typography>
           </Stack>
+
           <Divider sx={{ mb: 2 }} />
 
           <Box sx={{ flexGrow: 1, overflowY: "auto", pr: 1 }}>
             {history.length > 0 ? (
               <Stack spacing={2}>
                 {history.map((item, index) => (
-                  <Card key={index} variant="outlined" sx={{ borderRadius: 2 }}>
-                    <CardContent sx={{ p: 2, "&:last-child": { pb: 2 } }}>
+                  <Card
+                    key={index}
+                    variant="outlined"
+                    sx={{ borderRadius: 2 }}
+                  >
+                    <CardContent sx={{ p: 2 }}>
                       <Stack
                         sx={{
                           mb: 1,
@@ -240,14 +283,18 @@ export default function Home() {
                           flexDirection: "row",
                           justifyContent: "space-between",
                           alignItems: "start",
+                          gap: 1,
+                          flexWrap: "wrap"
                         }}
                       >
                         <Typography variant="caption" color="text.secondary">
                           {item.gameName || "Game name not found"}
                         </Typography>
+
                         <Typography variant="caption" color="text.secondary">
                           {item.Date}
                         </Typography>
+
                         <Chip
                           label={item.mode}
                           size="small"
@@ -261,35 +308,48 @@ export default function Home() {
                           variant="outlined"
                         />
                       </Stack>
+
                       <Stack
                         sx={{
-                          mb: 1,
                           display: "flex",
                           flexDirection: "row",
                           justifyContent: "space-between",
-                          alignItems: "start",
+                          alignItems: "center",
+                          gap: 2
                         }}
                       >
                         <Box>
                           <Typography
                             variant="body2"
-                            sx={{ color: "success.main", fontWeight: "bold" }}
+                            sx={{
+                              color: "success.main",
+                              fontWeight: "bold"
+                            }}
                           >
                             Correct: {item.rightQuestions}
                           </Typography>
+
                           <Typography
                             variant="body2"
-                            sx={{ color: "error.main", fontWeight: "bold" }}
+                            sx={{
+                              color: "error.main",
+                              fontWeight: "bold"
+                            }}
                           >
                             Wrong: {item.wrongQuestions}
                           </Typography>
+
                           <Typography
                             variant="body2"
-                            sx={{ color: "warning.main", fontWeight: "bold" }}
+                            sx={{
+                              color: "warning.main",
+                              fontWeight: "bold"
+                            }}
                           >
                             Bonus: {item.bonusScore || "No bonus"}
                           </Typography>
                         </Box>
+
                         <Typography
                           variant="h5"
                           sx={{
@@ -303,6 +363,7 @@ export default function Home() {
                             alignItems: "center",
                             justifyContent: "center",
                             textAlign: "center",
+                            flexShrink: 0
                           }}
                         >
                           {item.score}
@@ -314,7 +375,18 @@ export default function Home() {
               </Stack>
             ) : (
               <Box sx={{ textAlign: "center", mt: 10 }}>
-                <Image src="https://github.githubassets.com/assets/inbox-zero-dark-377cc25a227f.svg" alt="empty" width={300} height={300} />
+                <Image
+                  src="https://github.githubassets.com/assets/inbox-zero-dark-377cc25a227f.svg"
+                  alt="empty"
+                  width={300}
+                  height={300}
+                  style={{
+                    width: "100%",
+                    maxWidth: "260px",
+                    height: "auto"
+                  }}
+                />
+
                 <Typography color="text.secondary" sx={{ mt: 4 }}>
                   No games played yet.
                 </Typography>
@@ -327,7 +399,14 @@ export default function Home() {
       <Box sx={{ display: { xs: "block", md: "none" }, p: 2 }}>
         <Divider sx={{ my: 4 }} />
 
-        <Typography variant="h5" sx={{ fontWeight: "bold", mb: 2 }}>
+        <Typography
+          variant="h5"
+          sx={{
+            fontWeight: "bold",
+            mb: 2,
+            textAlign: "center"
+          }}
+        >
           My History
         </Typography>
 
@@ -335,23 +414,28 @@ export default function Home() {
           {history.length > 0 ? (
             <Stack spacing={2}>
               {history.map((item, index) => (
-                <Card key={index} variant="outlined" sx={{ borderRadius: 2 }}>
-                  <CardContent sx={{ p: 2, "&:last-child": { pb: 2 } }}>
+                <Card
+                  key={index}
+                  variant="outlined"
+                  sx={{ borderRadius: 2 }}
+                >
+                  <CardContent sx={{ p: 2 }}>
                     <Stack
                       sx={{
                         mb: 1,
                         display: "flex",
-                        flexDirection: "row",
-                        justifyContent: "space-between",
-                        alignItems: "start",
+                        flexDirection: "column",
+                        gap: 1
                       }}
                     >
                       <Typography variant="caption" color="text.secondary">
                         {item.gameName || "Game name not found"}
                       </Typography>
+
                       <Typography variant="caption" color="text.secondary">
                         {item.Date}
                       </Typography>
+
                       <Chip
                         label={item.mode}
                         size="small"
@@ -363,37 +447,51 @@ export default function Home() {
                               : "success"
                         }
                         variant="outlined"
+                        sx={{ width: "fit-content" }}
                       />
                     </Stack>
+
                     <Stack
                       sx={{
-                        mb: 1,
                         display: "flex",
                         flexDirection: "row",
                         justifyContent: "space-between",
-                        alignItems: "start",
+                        alignItems: "center",
+                        gap: 2
                       }}
                     >
                       <Box>
                         <Typography
                           variant="body2"
-                          sx={{ color: "success.main", fontWeight: "bold" }}
+                          sx={{
+                            color: "success.main",
+                            fontWeight: "bold"
+                          }}
                         >
                           Correct: {item.rightQuestions}
                         </Typography>
+
                         <Typography
                           variant="body2"
-                          sx={{ color: "error.main", fontWeight: "bold" }}
+                          sx={{
+                            color: "error.main",
+                            fontWeight: "bold"
+                          }}
                         >
                           Wrong: {item.wrongQuestions}
                         </Typography>
+
                         <Typography
                           variant="body2"
-                          sx={{ color: "warning.main", fontWeight: "bold" }}
+                          sx={{
+                            color: "warning.main",
+                            fontWeight: "bold"
+                          }}
                         >
                           Bonus: {item.bonusScore || "No bonus"}
                         </Typography>
                       </Box>
+
                       <Typography
                         variant="h5"
                         sx={{
@@ -407,6 +505,7 @@ export default function Home() {
                           alignItems: "center",
                           justifyContent: "center",
                           textAlign: "center",
+                          flexShrink: 0
                         }}
                       >
                         {item.score}
@@ -417,7 +516,7 @@ export default function Home() {
               ))}
             </Stack>
           ) : (
-            <Box sx={{ textAlign: "center", mt: 10 }}>
+            <Box sx={{ textAlign: "center", mt: 6 }}>
               <Typography color="text.secondary">
                 No games played yet.
               </Typography>
@@ -425,9 +524,10 @@ export default function Home() {
           )}
         </Box>
       </Box>
+
       <InstructionsCard />
       <MediumCard />
       <GameCard />
-    </Box >
+    </Box>
   );
 }

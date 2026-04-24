@@ -43,35 +43,75 @@ const MediumCard = () => {
                     top: "50%",
                     left: "50%",
                     transform: "translate(-50%, -50%)",
-                    minWidth: 300,
-                    width: "auto",
+                    width: {
+                        xs: "95%",
+                        sm: "90%",
+                        md: "75%",
+                        lg: "60%"
+                    },
                     maxWidth: 800,
-                    maxHeight: "100vh",
+                    maxHeight: "95vh",
                     overflowY: "auto",
-                    borderRadius: "20px",
+                    borderRadius: 3,
+                    outline: "none"
                 }}
             >
-                <Card sx={{ p: 2 }}>
+                <Card sx={{ p: { xs: 1, sm: 2 } }}>
                     <CardContent>
-                        <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                            <Typography variant="h6" align="center" gutterBottom>
+                        <Box
+                            sx={{
+                                display: "flex",
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                                flexWrap: "wrap",
+                                gap: 1,
+                                mb: 2
+                            }}
+                        >
+                            <Typography
+                                variant="h6"
+                                sx={{
+                                    fontSize: {
+                                        xs: "1rem",
+                                        sm: "1.2rem",
+                                        md: "1.4rem"
+                                    },
+                                    flex: 1
+                                }}
+                            >
                                 Select medium
                             </Typography>
-                            <Box sx={{ textAlign: "center" }}>
-                                <Button variant="contained" color="secondary" onClick={() => { setMedium(false); setOpen(false) }}>
-                                    <CloseIcon />
-                                </Button>
-                            </Box>
+
+                            <Button
+                                variant="contained"
+                                color="secondary"
+                                onClick={() => {
+                                    setMedium(false)
+                                    setOpen(false)
+                                }}
+                                sx={{
+                                    minWidth: "auto",
+                                    px: 1.5
+                                }}
+                            >
+                                <CloseIcon />
+                            </Button>
                         </Box>
 
-                        <Typography variant="body2" sx={{ mb: 2 }}>
+                        <Typography
+                            variant="body2"
+                            sx={{
+                                mb: 2,
+                                fontSize: { xs: "0.85rem", sm: "0.95rem" }
+                            }}
+                        >
                             {selectedGame?.mediumInstructions?.intro}
                         </Typography>
 
-                        <FormControl>
-                            <FormLabel id="demo-radio-buttons-group-label">Select Mode</FormLabel>
+                        <FormControl fullWidth sx={{ mb: 2 }}>
+                            <FormLabel>Select Mode</FormLabel>
+
                             <RadioGroup
-                                aria-labelledby="demo-radio-buttons-group-label"
                                 defaultValue="easy"
                                 name="radio-buttons-group"
                                 onChange={(e) => setMode(e.target.value)}
@@ -79,41 +119,134 @@ const MediumCard = () => {
                                     display: "flex",
                                     flexDirection: {
                                         xs: "column",
-                                        md: "row",
+                                        sm: "row"
                                     },
-                                    justifyContent: "space-between",
+                                    gap: 1
                                 }}
                             >
-                                <FormControlLabel value="easy" control={<Radio />} label="Easy" />
-                                <FormControlLabel value="medium" control={<Radio />} label="Medium" />
-                                <FormControlLabel value="hard" control={<Radio />} label="Hard" />
+                                <FormControlLabel
+                                    value="easy"
+                                    control={<Radio />}
+                                    label="Easy"
+                                />
+
+                                <FormControlLabel
+                                    value="medium"
+                                    control={<Radio />}
+                                    label="Medium"
+                                />
+
+                                <FormControlLabel
+                                    value="hard"
+                                    control={<Radio />}
+                                    label="Hard"
+                                />
                             </RadioGroup>
                         </FormControl>
 
                         <Typography component="div" sx={{ mb: 2 }}>
                             {mode === "easy" && (
                                 <Box>
-                                    <Typography sx={{ fontSize: "20px", fontWeight: "bold", mb: 1 }} variant="h1">EASY</Typography>
-                                    <Typography>{selectedGame?.mediumInstructions?.easy}</Typography>
+                                    <Typography
+                                        sx={{
+                                            fontSize: {
+                                                xs: "1rem",
+                                                sm: "1.2rem"
+                                            },
+                                            fontWeight: "bold",
+                                            mb: 1
+                                        }}
+                                    >
+                                        EASY
+                                    </Typography>
+
+                                    <Typography
+                                        sx={{
+                                            fontSize: {
+                                                xs: "0.85rem",
+                                                sm: "0.95rem"
+                                            }
+                                        }}
+                                    >
+                                        {selectedGame?.mediumInstructions?.easy}
+                                    </Typography>
                                 </Box>
                             )}
+
                             {mode === "medium" && (
                                 <Box>
-                                    <Typography sx={{ fontSize: "20px", fontWeight: "bold", mb: 1 }} variant="h1">MEDIUM</Typography>
-                                    <Typography>{selectedGame?.mediumInstructions?.medium}</Typography>
+                                    <Typography
+                                        sx={{
+                                            fontSize: {
+                                                xs: "1rem",
+                                                sm: "1.2rem"
+                                            },
+                                            fontWeight: "bold",
+                                            mb: 1
+                                        }}
+                                    >
+                                        MEDIUM
+                                    </Typography>
+
+                                    <Typography
+                                        sx={{
+                                            fontSize: {
+                                                xs: "0.85rem",
+                                                sm: "0.95rem"
+                                            }
+                                        }}
+                                    >
+                                        {selectedGame?.mediumInstructions?.medium}
+                                    </Typography>
                                 </Box>
                             )}
+
                             {mode === "hard" && (
                                 <Box>
-                                    <Typography sx={{ fontSize: "20px", fontWeight: "bold", mb: 1 }} variant="h1">HARD</Typography>
-                                    <Typography>{selectedGame?.mediumInstructions?.hard}</Typography>
+                                    <Typography
+                                        sx={{
+                                            fontSize: {
+                                                xs: "1rem",
+                                                sm: "1.2rem"
+                                            },
+                                            fontWeight: "bold",
+                                            mb: 1
+                                        }}
+                                    >
+                                        HARD
+                                    </Typography>
+
+                                    <Typography
+                                        sx={{
+                                            fontSize: {
+                                                xs: "0.85rem",
+                                                sm: "0.95rem"
+                                            }
+                                        }}
+                                    >
+                                        {selectedGame?.mediumInstructions?.hard}
+                                    </Typography>
                                 </Box>
                             )}
                         </Typography>
-
                     </CardContent>
-                    <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                        <Button variant="contained"
+
+                    <Box
+                        sx={{
+                            display: "flex",
+                            flexDirection: {
+                                xs: "column",
+                                sm: "row"
+                            },
+                            gap: 2,
+                            justifyContent: "space-between",
+                            px: 2,
+                            pb: 2
+                        }}
+                    >
+                        <Button
+                            fullWidth
+                            variant="contained"
                             color="secondary"
                             onClick={() => {
                                 setMedium(false)
@@ -122,7 +255,10 @@ const MediumCard = () => {
                         >
                             Previous
                         </Button>
-                        <Button variant="contained"
+
+                        <Button
+                            fullWidth
+                            variant="contained"
                             color="secondary"
                             onClick={handleGameStart}
                         >

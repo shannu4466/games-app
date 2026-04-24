@@ -129,9 +129,12 @@ export default function AuthClient() {
                 flexDirection: "column",
                 justifyContent: "center",
                 alignItems: "center",
-                width: "100vw",
-                height: "100vh",
+                width: "100%",
+                minHeight: "100vh",
+                px: { xs: 2, sm: 3 },
+                py: { xs: 2, sm: 4 },
                 background: "#0f0f0f",
+                overflowX: "hidden"
             }}
         >
             <Paper
@@ -140,25 +143,26 @@ export default function AuthClient() {
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
-                    gap: 3,
-                    px: 5,
-                    py: 5,
+                    gap: { xs: 2, sm: 3 },
+                    px: { xs: 2, sm: 4, md: 5 },
+                    py: { xs: 3, sm: 4, md: 5 },
                     width: "100%",
                     maxWidth: 420,
-                    borderRadius: 4,
+                    borderRadius: { xs: 3, sm: 4 },
                     background: "#1a1a1a",
-                    border: "1px solid #2a2a2a",
+                    border: "1px solid #2a2a2a"
                 }}
             >
                 <Typography
                     sx={{
-                        fontSize: "28px",
+                        fontSize: { xs: "24px", sm: "28px" },
                         fontWeight: "bold",
                         color: "blueviolet",
                         display: "flex",
                         alignItems: "center",
                         gap: 1,
                         letterSpacing: "-0.5px",
+                        textAlign: "center"
                     }}
                     variant="h1"
                 >
@@ -166,7 +170,14 @@ export default function AuthClient() {
                 </Typography>
 
                 <Tabs.Root value={activeTab} onValueChange={setActiveTab} style={{ width: "100%" }}>
-                    <Tabs.List style={{ display: "flex", marginBottom: "20px", borderBottom: "1px solid #2a2a2a" }}>
+                    <Tabs.List
+                        style={{
+                            display: "flex",
+                            marginBottom: "20px",
+                            borderBottom: "1px solid #2a2a2a",
+                            width: "100%"
+                        }}
+                    >
                         <Tabs.Trigger
                             value="login"
                             style={{
@@ -184,6 +195,7 @@ export default function AuthClient() {
                         >
                             Login
                         </Tabs.Trigger>
+
                         <Tabs.Trigger
                             value="signup"
                             style={{
@@ -205,28 +217,43 @@ export default function AuthClient() {
 
                     <style jsx>{`
                         :global(.tab-trigger[data-state='active']) {
-                            color: blueviolet !important;
-                            border-bottom: 2px solid blueviolet !important;
+                        color: blueviolet !important;
+                        border-bottom: 2px solid blueviolet !important;
                         }
                     `}</style>
 
                     <Tabs.Content value="login" forceMount>
                         <AnimatedPanel active={activeTab === "login"}>
-                            <Box sx={{ width: "100%", mt: -2, mb: 1, display: "flex", justifyContent: "center", alignItems: "center" }}>
-                                {/* <Typography sx={{ color: "#e0e0e0", fontSize: "20px", fontWeight: 600 }}>
-                                    Welcome back
-                                </Typography>
-                                <Typography sx={{ color: "#6b6b6b", fontSize: "13px", mt: 0.5 }}>
-                                    Sign in to your account
-                                </Typography> */}
-                                <Box sx={{ position: "relative", width: "150px", height: "150px" }} >
+                            <Box
+                                sx={{
+                                    width: "100%",
+                                    mt: { xs: 0, sm: -2 },
+                                    mb: 1,
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignItems: "center"
+                                }}
+                            >
+                                <Box
+                                    sx={{
+                                        position: "relative",
+                                        width: { xs: "120px", sm: "150px" },
+                                        height: { xs: "120px", sm: "150px" }
+                                    }}
+                                >
                                     <Image
-                                        src={monkey === true ? "https://raw.githubusercontent.com/naaficodes/Monkey-Login/master/images/monkey_pwd.gif" : "https://raw.githubusercontent.com/naaficodes/Monkey-Login/master/images/monkey.gif"}
+                                        src={
+                                            monkey === true
+                                                ? "https://raw.githubusercontent.com/naaficodes/Monkey-Login/master/images/monkey_pwd.gif"
+                                                : "https://raw.githubusercontent.com/naaficodes/Monkey-Login/master/images/monkey.gif"
+                                        }
                                         alt="monkey"
                                         width={150}
                                         height={150}
                                         className="rounded-full object-cover"
+                                        style={{ width: "100%", height: "100%" }}
                                     />
+
                                     {monkey && (
                                         <Image
                                             src="https://raw.githubusercontent.com/naaficodes/Monkey-Login/master/images/hands.png"
@@ -234,18 +261,35 @@ export default function AuthClient() {
                                             width={150}
                                             height={150}
                                             className="absolute -top-3 left-0 z-10"
+                                            style={{ width: "100%", height: "100%" }}
                                         />
                                     )}
                                 </Box>
                             </Box>
 
                             {userInvalid && (
-                                <Typography sx={{ color: "red", fontSize: "13px", textAlign: "center", mb: 2 }}>
+                                <Typography
+                                    sx={{
+                                        color: "red",
+                                        fontSize: "13px",
+                                        textAlign: "center",
+                                        mb: 2
+                                    }}
+                                >
                                     {userInvalid}
                                 </Typography>
                             )}
 
-                            <Box component="form" onSubmit={handleLoginSubmit(onLoginSubmit)} sx={{ display: "flex", flexDirection: "column", gap: 2.5 }}>
+                            <Box
+                                component="form"
+                                onSubmit={handleLoginSubmit(onLoginSubmit)}
+                                sx={{
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    gap: 2.5,
+                                    width: "100%"
+                                }}
+                            >
                                 <TextField
                                     fullWidth
                                     placeholder="Email address"
@@ -255,6 +299,7 @@ export default function AuthClient() {
                                     {...registerLogin("email", { required: "Email is required" })}
                                     sx={textFieldStyle}
                                 />
+
                                 <TextField
                                     fullWidth
                                     placeholder="Password"
@@ -266,20 +311,31 @@ export default function AuthClient() {
                                         input: {
                                             endAdornment: (
                                                 <InputAdornment position="end">
-                                                    <IconButton onClick={() => {
-                                                        setShowPassword(!showPassword)
-                                                        setMonkey(!monkey)
-                                                    }}
-                                                        sx={{ color: "blueviolet" }}>
+                                                    <IconButton
+                                                        onClick={() => {
+                                                            setShowPassword(!showPassword)
+                                                            setMonkey(!monkey)
+                                                        }}
+                                                        sx={{ color: "blueviolet" }}
+                                                    >
                                                         {showPassword ? <VisibilityOff /> : <VisibilityIcon />}
                                                     </IconButton>
                                                 </InputAdornment>
-                                            ),
-                                        },
+                                            )
+                                        }
                                     }}
                                     sx={textFieldStyle}
                                 />
-                                <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+
+                                <Box
+                                    sx={{
+                                        display: "flex",
+                                        flexDirection: { xs: "row" },
+                                        alignItems: { xs: "center" },
+                                        justifyContent: "space-between",
+                                        gap: 1
+                                    }}
+                                >
                                     <FormControlLabel
                                         control={
                                             <Controller
@@ -289,38 +345,92 @@ export default function AuthClient() {
                                                     <Checkbox
                                                         checked={field.value}
                                                         onChange={(e) => field.onChange(e.target.checked)}
-                                                        sx={{ color: "#aaa", "&.Mui-checked": { color: "blueviolet" } }}
+                                                        sx={{
+                                                            color: "#aaa",
+                                                            "&.Mui-checked": { color: "blueviolet" }
+                                                        }}
                                                     />
                                                 )}
                                             />
                                         }
-                                        label={<Typography sx={{ color: "blueviolet", fontSize: "13px" }}>Remember me</Typography>}
+                                        label={
+                                            <Typography sx={{ color: "blueviolet", fontSize: "13px" }}>
+                                                Remember me
+                                            </Typography>
+                                        }
                                     />
-                                    <Typography sx={{ color: "blueviolet", fontSize: "13px", cursor: "pointer" }}>Forgot password?</Typography>
+
+                                    <Typography
+                                        sx={{
+                                            color: "blueviolet",
+                                            fontSize: "13px",
+                                            cursor: "pointer"
+                                        }}
+                                    >
+                                        Forgot password?
+                                    </Typography>
                                 </Box>
-                                <Button type="submit" fullWidth variant="contained" sx={buttonStyle}>Sign in</Button>
+
+                                <Button type="submit" fullWidth variant="contained" sx={buttonStyle}>
+                                    Sign in
+                                </Button>
                             </Box>
                         </AnimatedPanel>
                     </Tabs.Content>
 
                     <Tabs.Content value="signup" forceMount>
                         <AnimatedPanel active={activeTab === "signup"}>
-                            <Box sx={{ width: "100%", textAlign: "center", mb: 3 }}>
-                                <Typography sx={{ color: "#e0e0e0", fontSize: "20px", fontWeight: 600 }}>
+                            <Box
+                                sx={{
+                                    width: "100%",
+                                    textAlign: "center",
+                                    mb: 3
+                                }}
+                            >
+                                <Typography
+                                    sx={{
+                                        color: "#e0e0e0",
+                                        fontSize: { xs: "18px", sm: "20px" },
+                                        fontWeight: 600
+                                    }}
+                                >
                                     Great to see you here
                                 </Typography>
-                                <Typography sx={{ color: "#6b6b6b", fontSize: "13px", mt: 0.5 }}>
+
+                                <Typography
+                                    sx={{
+                                        color: "#6b6b6b",
+                                        fontSize: "13px",
+                                        mt: 0.5
+                                    }}
+                                >
                                     Create your account and start playing
                                 </Typography>
                             </Box>
 
                             {userExists && (
-                                <Typography sx={{ color: "red", fontSize: "13px", textAlign: "center", mb: 2 }}>
+                                <Typography
+                                    sx={{
+                                        color: "red",
+                                        fontSize: "13px",
+                                        textAlign: "center",
+                                        mb: 2
+                                    }}
+                                >
                                     {userExists}
                                 </Typography>
                             )}
 
-                            <Box component="form" onSubmit={handleSignupSubmit(onSignupSubmit)} sx={{ display: "flex", flexDirection: "column", gap: 2.5 }}>
+                            <Box
+                                component="form"
+                                onSubmit={handleSignupSubmit(onSignupSubmit)}
+                                sx={{
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    gap: 2.5,
+                                    width: "100%"
+                                }}
+                            >
                                 <TextField
                                     fullWidth
                                     placeholder="Email address"
@@ -330,15 +440,20 @@ export default function AuthClient() {
                                     {...registerSignup("email", { required: "Email is required" })}
                                     sx={textFieldStyle}
                                 />
+
                                 <TextField
                                     fullWidth
                                     placeholder="Password"
                                     type="password"
                                     error={!!signupErrors.password}
                                     helperText={signupErrors.password?.message}
-                                    {...registerSignup("password", { required: "Password is required", minLength: { value: 6, message: "Min 6 chars" } })}
+                                    {...registerSignup("password", {
+                                        required: "Password is required",
+                                        minLength: { value: 6, message: "Min 6 chars" }
+                                    })}
                                     sx={textFieldStyle}
                                 />
+
                                 <TextField
                                     fullWidth
                                     placeholder="Confirm your password"
@@ -347,11 +462,15 @@ export default function AuthClient() {
                                     helperText={signupErrors.confirmPassword?.message}
                                     {...registerSignup("confirmPassword", {
                                         required: "Confirm Password is required",
-                                        validate: (val) => val === getSignupValues("password") || "Passwords do not match"
+                                        validate: (val) =>
+                                            val === getSignupValues("password") || "Passwords do not match"
                                     })}
                                     sx={textFieldStyle}
                                 />
-                                <Button type="submit" fullWidth variant="contained" sx={buttonStyle}>Create Account</Button>
+
+                                <Button type="submit" fullWidth variant="contained" sx={buttonStyle}>
+                                    Create Account
+                                </Button>
                             </Box>
                         </AnimatedPanel>
                     </Tabs.Content>
