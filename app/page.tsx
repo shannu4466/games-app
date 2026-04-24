@@ -33,6 +33,7 @@ type GameResult = {
   score: number;
   rightQuestions: number;
   wrongQuestions: number;
+  bonusScore: number;
   mode: string;
   Date: string;
 };
@@ -282,6 +283,12 @@ export default function Home() {
                           >
                             Wrong: {item.wrongQuestions}
                           </Typography>
+                          <Typography
+                            variant="body2"
+                            sx={{ color: "warning.main", fontWeight: "bold" }}
+                          >
+                            Bonus: {item.bonusScore || "No bonus"}
+                          </Typography>
                         </Box>
                         <Typography
                           variant="h5"
@@ -379,6 +386,12 @@ export default function Home() {
                           sx={{ color: "error.main", fontWeight: "bold" }}
                         >
                           Wrong: {item.wrongQuestions}
+                        </Typography>
+                        <Typography
+                          variant="body2"
+                          sx={{ color: "warning.main", fontWeight: "bold" }}
+                        >
+                          Bonus: {item.bonusScore || "No bonus"}
                         </Typography>
                       </Box>
                       <Typography

@@ -17,8 +17,9 @@ import {
     TextField,
     Typography,
     useTheme,
-    Zoom
+    Zoom,
 } from '@mui/material'
+import TipsAndUpdatesIcon from '@mui/icons-material/TipsAndUpdates';
 import { useCallback, useEffect, useState } from 'react'
 
 import { useHomePageStore } from '@/app/store'
@@ -36,17 +37,18 @@ const GameCard = () => {
     const setGameStarted = useHomePageStore((state) => state.setGameStarted)
 
     const [gameState, setGameState] = useState<'IDLE' | 'COUNTDOWN' | 'PLAYING' | 'FINISHED'>('IDLE')
-    const [countdown, setCountdown] = useState(3)
-    const [timeLeft, setTimeLeft] = useState(0)
+    const [countdown, setCountdown] = useState<number>(3)
+    const [timeLeft, setTimeLeft] = useState<number>(0)
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
     const [questions, setQuestions] = useState<Question[]>([])
     const [userAnswer, setUserAnswer] = useState('')
     const [error, setError] = useState<string>("");
-    const [score, setScore] = useState(0)
-    const [correctCount, setCorrectCount] = useState(0)
-    const [wrongCount, setWrongCount] = useState(0)
-    const [mode, setMode] = useState('')
-    const [confirmCloseOpen, setConfirmCloseOpen] = useState(false)
+    const [score, setScore] = useState<number>(0)
+    const [correctCount, setCorrectCount] = useState<number>(0)
+    const [wrongCount, setWrongCount] = useState<number>(0)
+    const [mode, setMode] = useState<string>('')
+    const [confirmCloseOpen, setConfirmCloseOpen] = useState<boolean>(false)
+    const [bonusScore, setBonusScore] = useState<number>(0)
 
     const gameName = useHomePageStore((state) => state.gameName)
 
@@ -54,26 +56,54 @@ const GameCard = () => {
     const userEmail = user?.email || 'undefinedUser@gmail.com'
 
     const saveResultToStorage = useCallback(
-        (finalScore: number, finalCorrect: number, finalWrong: number) => {
+        (
+            finalScore: number,
+            finalCorrect: number,
+            finalWrong: number,
+            earnedBonus: number,
+            rawScore: number
+        ) => {
             const gameResult = {
                 userEmail,
                 gameName,
                 score: finalScore,
+                rawScore,
+                bonusScore: earnedBonus,
                 rightQuestions: finalCorrect,
                 wrongQuestions: finalWrong,
                 mode,
                 Date: new Date().toLocaleString()
             }
 
-            try {
-                const existingScores = JSON.parse(localStorage.getItem('userScores') || '[]')
-                localStorage.setItem('userScores', JSON.stringify([...existingScores, gameResult]))
-            } catch (error) {
-                console.error('Failed to save game result:', error)
-                // Optionally show user notification that results couldn't be saved
-            }
+            const existingScores = JSON.parse(localStorage.getItem('userScores') || '[]')
+
+            localStorage.setItem(
+                'userScores',
+                JSON.stringify([...existingScores, gameResult])
+            )
         },
         [userEmail, gameName, mode]
+    )
+
+    const calculateBonusScore = useCallback(
+        (currentScore: number) => {
+            if (currentScore >= 100) return 0
+
+            const totalTime = Number(sessionStorage.getItem('timeInSeconds') || 180)
+            const usedTime = totalTime - timeLeft
+            const usedPercent = (usedTime / totalTime) * 100
+
+            let bonusPercent = 0
+
+            if (usedPercent <= 25) bonusPercent = 0.5
+            else if (usedPercent <= 50) bonusPercent = 0.35
+            else if (usedPercent <= 75) bonusPercent = 0.2
+            else bonusPercent = 0.1
+
+            const remaining = 100 - currentScore
+            return Math.round(remaining * bonusPercent)
+        },
+        [timeLeft]
     )
 
     const finishGame = useCallback(
@@ -83,9 +113,21 @@ const GameCard = () => {
                 return 'FINISHED'
             })
 
-            saveResultToStorage(finalScore, finalCorrect, finalWrong)
+            const bonus = calculateBonusScore(finalScore)
+            const updatedFinalScore = Math.min(finalScore + bonus, 100)
+
+            setBonusScore(bonus)
+            setScore(updatedFinalScore)
+
+            saveResultToStorage(
+                updatedFinalScore,
+                finalCorrect,
+                finalWrong,
+                bonus,
+                finalScore
+            )
         },
-        [score, correctCount, wrongCount, saveResultToStorage]
+        [score, correctCount, wrongCount, calculateBonusScore, saveResultToStorage]
     )
 
     const initGame = useCallback(() => {
@@ -467,6 +509,29 @@ const GameCard = () => {
                                             }}
                                         >
                                             {wrongCount}
+                                        </Typography>
+                                    </Box>
+
+                                    <Box
+                                        sx={{
+                                            display: 'flex',
+                                            justifyContent: 'space-between',
+                                            alignItems: 'center'
+                                        }}
+                                    >
+                                        <Stack direction='row' spacing={1} sx={{ alignItems: 'center' }}>
+                                            <TipsAndUpdatesIcon color='warning' />
+                                            <Typography variant='h6'>Bonus Score</Typography>
+                                        </Stack>
+
+                                        <Typography
+                                            variant='h6'
+                                            sx={{
+                                                fontWeight: 'bold',
+                                                color: 'warning.main'
+                                            }}
+                                        >
+                                            {bonusScore}
                                         </Typography>
                                     </Box>
 
